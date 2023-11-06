@@ -63,8 +63,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\Animations.cs" />
+    <Compile Include="Classes\Bullet.cs" />
+    <Compile Include="Classes\ICollidable.cs" />
     <Compile Include="Classes\Map.cs" />
     <Compile Include="Classes\Tank.cs" />
+    <Compile Include="Classes\Wall.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -7,17 +7,30 @@ using System.Windows;
 
 namespace BattleCity.Classes
 {
-    class Tank
+    class Tank//: ICollidable
     {
         private bool goLeft, goRight, goUp, goDown; // Показывают, находится ли танк в движении. Если да, то куда он едет
         private double posX, posY, sizeX, sizeY; //Текущая позиция танка (его центра), его размеры - по X и по Y
         private double speed; //Скорость в ед/сек
+        private int hp; //Количество единиц здоровья
 
 
         public void Shoot() //Стрелять
         {
 
         }
+
+        public void CollideWithBullet() //Столкновение с пулей
+        {
+            hp--;
+            if (hp < 0)
+            {
+                Animations.Bum();
+            }
+
+        }
+
+
 
         public void Drive(int ms) //Движение танка
         {
