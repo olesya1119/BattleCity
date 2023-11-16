@@ -14,17 +14,17 @@ namespace BattleCity.Classes
         /// <summary>
         /// Проверка на столкновение объекта со стеной
         /// </summary>
-        void isCollide(Wall wall);
+        bool isCollide(Wall wall);
 
         /// <summary>
         /// Проверка на столкновение объекта с пулей
         /// </summary>
-        void isCollide(Bullet bullet);
+        bool isCollide(Bullet bullet);
 
         /// <summary>
         /// Проверка на столкновение объекта с танком
         /// </summary>
-        void isCollide(Tank tank);
+        bool isCollide(Tank tank);
 
     }
 }
