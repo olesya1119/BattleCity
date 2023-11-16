@@ -9,5 +9,11 @@ namespace BattleCity.Classes
     class Map
     {
         public const int X = 100; //Размер карты X*X 
+
+        public Map()
+        {
+
+        }
+
     }
 }

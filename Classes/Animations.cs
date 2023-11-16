@@ -10,5 +10,11 @@ namespace BattleCity.Classes
     {
         public static void Boom()//Анимация взрыва
         { }
+
+        public static void Bang()//Анимация попадания пули по любому объекту
+        { }
+
+        public static void Birth()//Анимация "рождения танка"
+        { }
     }
 }
