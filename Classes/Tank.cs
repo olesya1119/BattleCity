@@ -10,7 +10,7 @@ namespace BattleCity.Classes
     class Tank//: ICollidable
     {
         private bool goLeft, goRight, goUp, goDown; // Показывают, находится ли танк в движении. Если да, то куда он едет
-        private double posX, posY, sizeX, sizeY; //Текущая позиция танка (его центра), его размеры - по X и по Y
+        private double posX, posY, size; //Текущая позиция танка (его центра), его размеры - по X и по Y
         private double speed; //Скорость в ед/сек
         private int hp; //Количество единиц здоровья
 
@@ -25,7 +25,7 @@ namespace BattleCity.Classes
             hp--;
             if (hp < 0)
             {
-                Animations.Bum();
+                Animations.Boom();
             }
 
         }
@@ -37,9 +37,9 @@ namespace BattleCity.Classes
             double dist = ms * speed/1000; //Пройденая дистанция
             if (goLeft)
             {
-                if (posX + sizeX / 2 - dist <= 0)
+                if (posX + size / 2 - dist <= 0)
                 {
-                    posX = sizeX / 2;
+                    posX = size / 2;
                 }
                 else
                 {
@@ -49,9 +49,9 @@ namespace BattleCity.Classes
             }
             else if (goRight)
             {
-                if (posX + sizeX / 2 + dist >= Map.X)
+                if (posX + size / 2 + dist >= Map.X)
                 {
-                    posX = Map.X - sizeX / 2;
+                    posX = Map.X - size / 2;
                 }
                 else
                 {
@@ -61,9 +61,9 @@ namespace BattleCity.Classes
             }
             else if (goUp)
             {
-                if(posY + sizeY / 2 + dist >= Map.X)
+                if(posY + size / 2 + dist >= Map.X)
                 {
-                    posY = Map.X - sizeY / 2;
+                    posY = Map.X - size / 2;
                 }
                 else
                 {
@@ -73,9 +73,9 @@ namespace BattleCity.Classes
             } 
             else if (goDown)
             {
-                if (posY + sizeY / 2 + dist <= 0)
+                if (posY + size / 2 + dist <= 0)
                 {
-                    posY = sizeY / 2;
+                    posY = size / 2;
                 }
                 else
                 {

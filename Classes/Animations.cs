@@ -8,7 +8,7 @@ namespace BattleCity.Classes
 {
     class Animations
     {
-        public static void Bum()//Анимация взрыва
+        public static void Boom()//Анимация взрыва
         { }
     }
 }
