@@ -20,6 +20,7 @@ namespace BattleCity
     /// </summary>
     public partial class MainWindow : Window
     {
+        /*
         int Flag = 1;
         int X = 10, Y = 10;
         Rectangle rectangle = new Rectangle();
@@ -39,7 +40,7 @@ namespace BattleCity
             canvas.Children.Add(rectangle);
 
         }
-        /*
+        
         private void canvas_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.A || e.Key == Key.W || e.Key == Key.S || e.Key == Key.D) 
@@ -74,7 +75,7 @@ namespace BattleCity
                 Flag = 0;
             }
         }
-        */
+        
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
             
@@ -115,5 +116,8 @@ namespace BattleCity
 
             base.OnPreviewKeyUp(e);
         }
+        */
+
+
     }
 }
