@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BattleCity.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -118,6 +119,20 @@ namespace BattleCity
         }
         */
 
+        public MainWindow()
+        {
+            InitializeComponent();
+            List<Wall> walls = new List<Wall>();
+            Wall wall1 = new Wall(TypeWall.Brick, 1, 1, 1, false);
+            Wall wall2 = new Wall(TypeWall.Steel, 12, 45, 4, true);
+            walls.Add(wall1);
+            walls.Add(wall2);
 
+            Level level = new Level(2, walls, 4, 1, 4, 6, 7, 3, 6);
+            level.SaveLevel();
+            Level level1 = new Level(2);
+
+            start.Content = level1.ID.ToString();
+        }
     }
 }

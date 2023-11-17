@@ -17,7 +17,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button x:Name="start" Content="Start" Grid.Column="1" Grid.Row="1"/>
+        <Button x:Name="start" Grid.Column="1" Grid.Row="1"/>
     </Grid>
     
 </Window>
