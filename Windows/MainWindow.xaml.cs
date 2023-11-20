@@ -1,4 +1,5 @@
 ﻿using BattleCity.Classes;
+using BattleCity.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,7 +122,8 @@ namespace BattleCity
 
         public MainWindow()
         {
-            InitializeComponent();
+            
+            /*InitializeComponent();
             List<Wall> walls = new List<Wall>();
             Wall wall1 = new Wall(TypeWall.Brick, 1, 1, 1, false);
             Wall wall2 = new Wall(TypeWall.Steel, 12, 45, 4, true);
@@ -132,7 +134,16 @@ namespace BattleCity
             level.SaveLevel();
             Level level1 = new Level(2);
 
-            start.Content = level1.ID.ToString();
+            start.Content = level1.ID.ToString();*/
+            InitializeComponent();
+            
+
+        }
+
+        private void start_Click(object sender, RoutedEventArgs e)
+        {
+            GameWindow gameWindow = new GameWindow();
+            gameWindow.Show();
         }
     }
 }

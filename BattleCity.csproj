@@ -84,6 +84,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Windows\GameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -92,13 +96,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Animations.cs" />
+    <Compile Include="Classes\Media.cs" />
     <Compile Include="Classes\Bullet.cs" />
     <Compile Include="Classes\ICollidable.cs" />
     <Compile Include="Classes\Level.cs" />
     <Compile Include="Classes\Map.cs" />
     <Compile Include="Classes\Tank.cs" />
+    <Compile Include="Classes\ViewTank.cs" />
     <Compile Include="Classes\Wall.cs" />
+    <Compile Include="Windows\GameWindow.xaml.cs">
+      <DependentUpon>GameWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -133,7 +141,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Levels\" />
-    <Folder Include="Res\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\mainTank.png" />
+    <Resource Include="Res\Wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Images\playerTank1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

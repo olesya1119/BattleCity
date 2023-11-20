@@ -8,7 +8,7 @@ namespace BattleCity.Classes
 {
     class Map
     {
-        public const int X = 100; //Размер карты X*X 
+        public static double X = System.Windows.SystemParameters.PrimaryScreenHeight * 0.9; //Размер карты X*X 
 
         public Map()
         {
