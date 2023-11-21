@@ -48,8 +48,8 @@ namespace BattleCity.Windows
             canvas.Height = GameSize;
 
 
-            player = new ViewPlayerTank(tank1, Key.Left, Key.Right, Key.Up, Key.Down, 1);
-            canvas.Children.Add(player.Rectangle);
+            player = new ViewPlayerTank(tank1, Key.Left, Key.Right, Key.Up, Key.Down, Key.Enter, 1, ref canvas);
+
        
             gameTimer.Tick += GameTimerEvent;
             gameTimer.Interval = TimeSpan.FromMilliseconds(timerMS);
@@ -58,7 +58,7 @@ namespace BattleCity.Windows
 
         private void GameTimerEvent(object sender, EventArgs e)
         {
-
+            player.Update();
         }
 
         private void map_KeyDown(object sender, KeyEventArgs e)

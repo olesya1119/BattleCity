@@ -10,7 +10,7 @@
 
     <Grid>
         <TextBlock x:Name="textBox"/>
-        <Canvas Background="Aqua" x:Name="canvas" Focusable="True" KeyDown="map_KeyDown" KeyUp="map_KeyUp">
+        <Canvas Background="Aqua" x:Name="canvas" Focusable="True" PreviewKeyDown="map_KeyDown" PreviewKeyUp="map_KeyUp">
            
 
         </Canvas>

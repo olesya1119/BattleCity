@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace BattleCity.Classes
 {
     enum Texture
     {
-        PlayerTank1, PlayerTank2, EnemyTank1, EnemyTank2, Wall
+        Bullet
     }
 
     enum AnimationFrames
     {
-        DrivePlayerTank1
+        DrivePlayerTank1, Boom, Bullet
     }
 
     /// <summary>
@@ -24,14 +28,53 @@ namespace BattleCity.Classes
     /// </summary>
     class Media
     {
-        public static void Boom()//Анимация взрыва
-        { }
+        private static Rectangle rectangle;
+        private static ImageBrush[] frames;
+        
+
+       /* public void Boom(double posX, double posY, double Size, ref Canvas canvas)//Анимация взрыва
+        {
+            int frame;
+            rectangle = new Rectangle();
+            frames = getAnimationFrames(AnimationFrames.Boom);
+            rectangle.Width = Size;
+            rectangle.Height = Size;
+            rectangle.Fill = frames[0];
+
+            Canvas.SetLeft(rectangle, posX);
+            Canvas.SetBottom(rectangle, posY);
+            canvas.Children.Add(rectangle);
+            frame = 1;
+
+            TimerCallback tm = new TimerCallback(AnimBoom);
+
+            while (frame < frames.Length)
+            {
+                Timer timer = new Timer(tm, frame, 5000, 100);
+                frame++;
+            }
+
+            
+            canvas.Children.Remove(rectangle);
+        }
+
+        public static void AnimBoom(object obj)
+        {
+            int frame = (int)obj;
+            rectangle.Fill= frames[frame];
+        }*/
+
 
         public static void Bang()//Анимация попадания пули по любому объекту
-        { }
+        {
+            
+
+        }
 
         public static void Birth()//Анимация "рождения танка"
-        { }
+        { 
+        
+        }
 
 
         
@@ -40,11 +83,11 @@ namespace BattleCity.Classes
             Uri uri;
             switch (texture)
             {
-                case Texture.PlayerTank1:
-                    uri = new Uri(@"../../Res/mainTank.png", UriKind.RelativeOrAbsolute);
+                case Texture.Bullet:
+                    uri = new Uri(@"../../Res/Images/Bullet.png", UriKind.RelativeOrAbsolute);
                     break;
                 default:
-                    uri = new Uri(@"../../Res/mainTank.png", UriKind.RelativeOrAbsolute);
+                    uri = new Uri(@"../../Res/Images/Error.png", UriKind.RelativeOrAbsolute);
                     break;
             }
             ImageBrush img = new ImageBrush();
@@ -56,17 +99,20 @@ namespace BattleCity.Classes
             return img;
         }
 
-        public static ImageBrush[] getAnimationFrames(AnimationFrames animationFrames)
+        public static ImageBrush[] getAnimationFramesWithRotate(AnimationFrames animationFrames)
         {
             int frames = 0, height, width;
             Uri uri;
             switch (animationFrames)
             {
                 case AnimationFrames.DrivePlayerTank1:
-                    uri = new Uri(@"../../Res/Images/playerTank1.png", UriKind.RelativeOrAbsolute);
+                    uri = new Uri(@"../../Res/Images/PlayerTank1.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case AnimationFrames.Bullet:
+                    uri = new Uri(@"../../Res/Images/Bullet.png", UriKind.RelativeOrAbsolute);
                     break;
                 default:
-                    uri = new Uri(@"../../Res/Images/playerTank1.png", UriKind.RelativeOrAbsolute);
+                    uri = new Uri(@"../../Res/Images/Error.png", UriKind.RelativeOrAbsolute);
                     break;
             }
             BitmapImage bmp = new BitmapImage();
@@ -106,25 +152,44 @@ namespace BattleCity.Classes
                 tb3.Transform = new RotateTransform(270);
                 imageBrushes[i + frames*3] = new ImageBrush(tb3);
                 tb3.EndInit();
-                
-                /*
-                tb.BeginInit();
-                tb.Source = croppedImage;
-                tb.Transform = new RotateTransform(180);
-                tb.EndInit();
-                imageBrushes[i + frames * 2] = new ImageBrush(croppedImage);
-
-                tb.BeginInit();
-                tb.Source = croppedImage;
-                tb.Transform = new RotateTransform(270);
-                tb.EndInit();
-                imageBrushes[i + frames * 3] = new ImageBrush(croppedImage);*/
+                  
             }
 
             return imageBrushes;
         }
 
-        
+        public static ImageBrush[] getAnimationFrames(AnimationFrames animationFrames)
+        {
+            int frames = 0, height, width;
+            Uri uri;
+            switch (animationFrames)
+            {
+                case AnimationFrames.Boom:
+                    uri = new Uri(@"../../Res/Images/Boom.png", UriKind.RelativeOrAbsolute);
+                    break;
+                default:
+                    uri = new Uri(@"../../Res/Images/Error.png", UriKind.RelativeOrAbsolute);
+                    break;
+            }
+            BitmapImage bmp = new BitmapImage();
+            bmp.BeginInit();
+            bmp.UriSource = uri;
+            bmp.EndInit();
+
+            height = bmp.PixelHeight;
+            width = bmp.PixelWidth;
+            frames = height / width;
+
+            ImageBrush[] imageBrushes = new ImageBrush[frames];
+            for (int i = 0; i < frames; i++)
+            {
+                Int32Rect int32Rect = new Int32Rect(0, i * (height / frames), width, (height / frames));
+                CroppedBitmap croppedImage = new CroppedBitmap(bmp, int32Rect);
+                imageBrushes[i] = new ImageBrush(croppedImage);
+            }
+            return imageBrushes;
+        }
+
 
     }
 }
