@@ -13,38 +13,36 @@ namespace BattleCity.Classes
     {
         private Bullet bullet;
         private Rectangle rectangle;
-        private ImageBrush[] frames;
         private Canvas canvas;
 
-        public Bullet Bullet { get { return bullet; } }
+        public Bullet Bullet { get { return bullet; } set { bullet = value; } }
 
         public ViewBullet(Bullet bullet, ref Canvas canvas)
         {
             this.bullet = bullet;
             this.canvas = canvas;
 
-
-            frames = Media.getAnimationFramesWithRotate(AnimationFrames.Bullet);
             rectangle = new Rectangle();
             rectangle.Height = bullet.Size;
             rectangle.Width = bullet.Size;
 
-            rectangle.Fill = frames[(int)bullet.Direction];
+            rectangle.Fill = Media.getAnimationFramesWithRotate(AnimationFrames.Bullet)[(int)bullet.Direction];
             Canvas.SetLeft(rectangle, bullet.PosX - bullet.Size / 2);
             Canvas.SetBottom(rectangle, bullet.PosY - bullet.Size / 2);
 
             canvas.Children.Add(rectangle);
         }
 
-        public void Fly()
+        public void Update()
         {
             bullet.Fly();
             Canvas.SetLeft(rectangle, bullet.PosX - bullet.Size / 2);
             Canvas.SetBottom(rectangle, bullet.PosY - bullet.Size / 2);
 
-            if (bullet.ItExists ==  false) { 
+            if (bullet.HP ==  0) { 
                 canvas.Children.Remove(rectangle);
             }
+            
         }
     }
 }

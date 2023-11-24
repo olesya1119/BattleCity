@@ -11,6 +11,10 @@ using System.Numerics;
 using System.Windows.Media;
 using System.Threading;
 
+
+using BattleCity.Classes.Model;
+using System.Data;
+
 namespace BattleCity.Classes
 {
 
@@ -60,9 +64,10 @@ namespace BattleCity.Classes
             Canvas.SetBottom(rectangle, tank.PosY - tank.Size / 2);
 
             canvas.Children.Add(rectangle);
-
             bullets = new List<ViewBullet> { };
         }
+
+
 
         public void UpdateTexture() {
             frame += 1;
@@ -73,27 +78,71 @@ namespace BattleCity.Classes
             rectangle.Fill = frames[frame + (frames.Length / 4) * (int)tank.Direction];
         }
 
-        public void Update() { 
+
+        public async void UpdateAsync() { 
+            tank.Update();
+            Canvas.SetLeft(rectangle, tank.PosX - tank.Size / 2);
+            Canvas.SetBottom(rectangle, tank.PosY - tank.Size / 2);
+
 
             for (int i = 0; i < bullets.Count; i++)
             {
-                bullets[i].Fly();
-                if (!bullets[i].Bullet.ItExists) { 
-                    Media media = new Media();
-                    //media.Boom(bullets[i].Bullet.PosX, bullets[i].Bullet.PosY, 60, ref canvas);
+                bullets[i].Update();
+                if (bullets[i].Bullet.HP == 0)
+                {
+                    
+                    //Media media = new Media(bullets[i].Bullet.PosX + 10, bullets[i].Bullet.PosY - 10, 60, ref canvas);
+                    //await media.Boom();
 
                     bullets.RemoveAt(i);
+                    
                     i--;
                 }
-            }
+            }            
         }
 
+       public void UpdateKeyboard()
+        {
+            if (Keyboard.IsKeyDown(left))
+            {
+                tank.Go = true;
+                tank.Direction = Direction.Left;
+                UpdateTexture();
+            }
+
+            else if(Keyboard.IsKeyDown(right))
+            {
+                tank.Go = true;
+                tank.Direction = Direction.Right;
+                UpdateTexture();
+            }
+
+            else if (Keyboard.IsKeyDown(up))
+            {
+                tank.Go = true;
+                tank.Direction = Direction.Up;
+                UpdateTexture();
+            }
+
+            else if (Keyboard.IsKeyDown(down))
+            {
+                tank.Go = true;
+                tank.Direction = Direction.Down;
+                UpdateTexture();
+            }
+
+            else {
+                tank.Go = false;
+            }
+
+        }
         
+        /*
         public void KeyDown(KeyEventArgs e)
         {
             if (e.Key == left)
             {
-                tank.Direction = Direction.Left;;
+                
             }
             else if (e.Key == right)
             {
@@ -112,19 +161,18 @@ namespace BattleCity.Classes
             {
                 tank.Go = true;
                 UpdateTexture();
-                tank.Drive();
             }
 
 
             if (e.Key == shoot)
             {
-                bullets.Add(new ViewBullet(tank.Shoot(), ref canvas));
+                Shoot(); 
             }
 
-            Canvas.SetLeft(rectangle, tank.PosX - tank.Size / 2);
-            Canvas.SetBottom(rectangle, tank.PosY - tank.Size / 2);
-        }
+           
+        }*/
 
+        /*
         public void KeyUp(KeyEventArgs e)
         {
             if (e.Key == left && tank.Direction == Direction.Left)
@@ -142,7 +190,18 @@ namespace BattleCity.Classes
             else if (e.Key == down && tank.Direction == Direction.Down)
             {
                 tank.Go = false;
+            }           
+        }*/
+
+        public bool Shoot(KeyEventArgs e, int lastShotTime)
+        {
+            if (e.Key == shoot && lastShotTime>1000)
+            {
+                bullets.Add(new ViewBullet(tank.Shoot(), ref canvas));
+                return true;
             }
+
+            return false;
         }
     }
 }

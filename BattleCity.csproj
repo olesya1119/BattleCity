@@ -97,14 +97,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Media.cs" />
-    <Compile Include="Classes\Bullet.cs" />
-    <Compile Include="Classes\ICollidable.cs" />
-    <Compile Include="Classes\Level.cs" />
-    <Compile Include="Classes\Map.cs" />
-    <Compile Include="Classes\Tank.cs" />
-    <Compile Include="Classes\ViewBullet.cs" />
-    <Compile Include="Classes\ViewPlayerTank.cs" />
-    <Compile Include="Classes\Wall.cs" />
+    <Compile Include="Classes\Model\Bullet.cs" />
+    <Compile Include="Classes\Model\GameDynamicObject.cs" />
+    <Compile Include="Classes\Model\ICollidable.cs" />
+    <Compile Include="Classes\Model\Level.cs" />
+    <Compile Include="Classes\Model\Map.cs" />
+    <Compile Include="Classes\Model\GameObject.cs" />
+    <Compile Include="Classes\Model\Tank.cs" />
+    <Compile Include="Classes\ViewModel\ViewBullet.cs" />
+    <Compile Include="Classes\ViewModel\ViewPlayerTank.cs" />
+    <Compile Include="Classes\Model\Wall.cs" />
     <Compile Include="Windows\GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>

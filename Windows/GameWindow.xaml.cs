@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +28,7 @@ namespace BattleCity.Windows
         static double GameSize = HeightWindow * 0.9;
         DispatcherTimer gameTimer = new DispatcherTimer();
         static int timerMS = 20; //как часто запускается таймер
+        int timer;
 
 
 
@@ -47,28 +49,34 @@ namespace BattleCity.Windows
             canvas.Width = GameSize;
             canvas.Height = GameSize;
 
-
+            timer = 0;
             player = new ViewPlayerTank(tank1, Key.Left, Key.Right, Key.Up, Key.Down, Key.Enter, 1, ref canvas);
 
        
-            gameTimer.Tick += GameTimerEvent;
+            gameTimer.Tick += GameTimerEventAsync;
             gameTimer.Interval = TimeSpan.FromMilliseconds(timerMS);
             gameTimer.Start();
         }
 
-        private void GameTimerEvent(object sender, EventArgs e)
+        private void GameTimerEventAsync(object sender, EventArgs e)
         {
-            player.Update();
+            timer += 20;
+            player.UpdateAsync();
+            player.UpdateKeyboard();
         }
 
         private void map_KeyDown(object sender, KeyEventArgs e)
         {
-            player.KeyDown(e);
+            if (player.Shoot(e, timer))
+            {
+                timer = 0;
+            }
+            //player.KeyDown(e);
         }
 
         private void map_KeyUp(object sender, KeyEventArgs e)
         {
-            player.KeyUp(e);
+            //player.KeyUp(e);
         }
     }
 }

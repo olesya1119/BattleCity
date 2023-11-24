@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace BattleCity.Classes
 {
@@ -28,24 +29,36 @@ namespace BattleCity.Classes
     /// </summary>
     class Media
     {
-        private static Rectangle rectangle;
-        private static ImageBrush[] frames;
-        
+        private Rectangle rectangle;
+        private ImageBrush[] frames;
+        private double posX, posY, size;
+        Canvas canvas;
 
-       /* public void Boom(double posX, double posY, double Size, ref Canvas canvas)//Анимация взрыва
+
+        public Media(double posX, double posY, double size, ref Canvas canvas)
         {
-            int frame;
+            this.posX = posX;
+            this.posY = posY;
+            this.size = size;
+            this.canvas = canvas;
             rectangle = new Rectangle();
             frames = getAnimationFrames(AnimationFrames.Boom);
-            rectangle.Width = Size;
-            rectangle.Height = Size;
+            rectangle.Width = size;
+            rectangle.Height = size;
             rectangle.Fill = frames[0];
 
             Canvas.SetLeft(rectangle, posX);
             Canvas.SetBottom(rectangle, posY);
             canvas.Children.Add(rectangle);
+        }
+
+        public async Task Boom()//Анимация взрыва
+        {
+            int frame;
+
             frame = 1;
 
+            /*
             TimerCallback tm = new TimerCallback(AnimBoom);
 
             while (frame < frames.Length)
@@ -55,14 +68,19 @@ namespace BattleCity.Classes
             }
 
             
+            canvas.Children.Remove(rectangle);*/
+
+            while (frame < frames.Length)
+            {
+                //Timer timer = new Timer(tm, frame, 5000, 100);
+                rectangle.Fill = frames[frame];
+                frame++;
+                await Task.Run(() => Thread.Sleep(20));
+            }
             canvas.Children.Remove(rectangle);
+
         }
 
-        public static void AnimBoom(object obj)
-        {
-            int frame = (int)obj;
-            rectangle.Fill= frames[frame];
-        }*/
 
 
         public static void Bang()//Анимация попадания пули по любому объекту
