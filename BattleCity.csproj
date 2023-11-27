@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="Classes\Media.cs" />
     <Compile Include="Classes\Model\Bullet.cs" />
+    <Compile Include="Classes\Model\Game.cs" />
     <Compile Include="Classes\Model\GameDynamicObject.cs" />
     <Compile Include="Classes\Model\ICollidable.cs" />
     <Compile Include="Classes\Model\Level.cs" />
