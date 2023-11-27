@@ -83,6 +83,14 @@ namespace BattleCity.Classes.Model
                         tnk1.PosY -= tnk1.Speed; break;
                 }
                 if (tnk1.isCollide(tnk2)) player1.Tank.Go = false;
+                for (int i = 0; i < viewWalls.Count; i++)
+                {
+                    if (tnk1.isCollide(viewWalls[i].Wall))
+                    {
+                        player1.Tank.Go = false;
+                        break;
+                    }
+                }
             }
             if (tnk2.Go)
             {
@@ -98,9 +106,42 @@ namespace BattleCity.Classes.Model
                         tnk2.PosY -= tnk2.Speed; break;
                 }
                 if (tnk2.isCollide(tnk1)) player2.Tank.Go = false;
+                for (int i = 0; i < viewWalls.Count; i++)
+                {
+                    if (tnk2.isCollide(viewWalls[i].Wall))
+                    {
+                        player2.Tank.Go = false;
+                        break;
+                    }
+                }
             }
-
-
+            if (player1.ViewBullet != null || player2.ViewBullet != null)
+            {
+                for (int i = 0; i < viewWalls.Count; i++)
+                {
+                    if (player1.ViewBullet != null && player1.ViewBullet.Bullet.isCollide(viewWalls[i].Wall))
+                    {
+                        player1.ViewBullet.Death();
+                        if (viewWalls[i].Wall.Destructibility)
+                        {
+                            viewWalls[i].Death();
+                            viewWalls.RemoveAt(i);
+                            break;
+                        }
+                    }
+                    if (player2.ViewBullet != null && player2.ViewBullet.Bullet.isCollide(viewWalls[i].Wall))
+                    {
+                        player2.ViewBullet.Death();
+                        if (viewWalls[i].Wall.Destructibility)
+                        {
+                            viewWalls[i].Death();
+                            viewWalls.RemoveAt(i);
+                            break;
+                        }
+                    }
+                }
+            }
+            
 
             if (player1.ViewBullet != null && player2.Tank.isCollide(player1.ViewBullet.Bullet))
             {

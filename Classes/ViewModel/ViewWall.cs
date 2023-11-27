@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -13,11 +14,12 @@ namespace BattleCity.Classes
         private Wall wall;
         private Rectangle rectangle;
         private Canvas canvas;
+        public Wall Wall { get { return wall; } }
         public ViewWall(Wall wall, ref Canvas canvas)
         {
             this.wall = wall;
             this.canvas = canvas;
-
+            
             rectangle = new Rectangle();
             rectangle.Height = wall.Size;
             rectangle.Width = wall.Size;
