@@ -26,7 +26,7 @@ namespace BattleCity.Classes
         private Key left, right, up, down, shoot;
         private ImageBrush[] frames;
         private Canvas canvas;
-        private List<ViewBullet> bullets;
+        private ViewBullet viewBullet;
 
         public Tank Tank { get { return tank; } }
         public Rectangle Rectangle { get { return rectangle; } }
@@ -36,6 +36,7 @@ namespace BattleCity.Classes
         public Key Right { get { return right; } }  
         public Key Up { get { return up; } }
         public Key Down { get { return down; } }
+        public ViewBullet ViewBullet { get { return viewBullet; } }
 
 
         public ViewPlayerTank(Tank tank, Key left, Key right, Key up, Key down, Key shoot, int numberPlayer, ref Canvas canvas)
@@ -64,7 +65,7 @@ namespace BattleCity.Classes
             Canvas.SetBottom(rectangle, tank.PosY - tank.Size / 2);
 
             canvas.Children.Add(rectangle);
-            bullets = new List<ViewBullet> { };
+            viewBullet = null;
         }
 
 
@@ -79,26 +80,20 @@ namespace BattleCity.Classes
         }
 
 
-        public async void UpdateAsync() { 
+        public void Update() { 
             tank.Update();
             Canvas.SetLeft(rectangle, tank.PosX - tank.Size / 2);
             Canvas.SetBottom(rectangle, tank.PosY - tank.Size / 2);
 
-
-            for (int i = 0; i < bullets.Count; i++)
+            if (viewBullet != null)
             {
-                bullets[i].Update();
-                if (bullets[i].Bullet.HP == 0)
+                viewBullet.Update();
+                if (viewBullet.Bullet.HP == 0)
                 {
-                    
-                    //Media media = new Media(bullets[i].Bullet.PosX + 10, bullets[i].Bullet.PosY - 10, 60, ref canvas);
-                    //await media.Boom();
-
-                    bullets.RemoveAt(i);
-                    
-                    i--;
+                    viewBullet = null;
                 }
-            }            
+            }
+      
         }
 
        public void UpdateKeyboard()
@@ -137,71 +132,12 @@ namespace BattleCity.Classes
 
         }
         
-        /*
-        public void KeyDown(KeyEventArgs e)
+        public void Shoot(KeyEventArgs e)
         {
-            if (e.Key == left)
+            if (viewBullet == null && e.Key == shoot)
             {
-                
+                viewBullet = new ViewBullet(tank.Shoot(), ref canvas);
             }
-            else if (e.Key == right)
-            {
-                tank.Direction = Direction.Right;
-            }
-            else if (e.Key == up)
-            {
-                tank.Direction = Direction.Up;
-            }
-            else if (e.Key == down)
-            {
-                tank.Direction = Direction.Down;
-            }
-
-            if (Keyboard.IsKeyDown(left) || Keyboard.IsKeyDown(right) || Keyboard.IsKeyDown(up) || Keyboard.IsKeyDown(down))
-            {
-                tank.Go = true;
-                UpdateTexture();
-            }
-
-
-            if (e.Key == shoot)
-            {
-                Shoot(); 
-            }
-
-           
-        }*/
-
-        /*
-        public void KeyUp(KeyEventArgs e)
-        {
-            if (e.Key == left && tank.Direction == Direction.Left)
-            {
-                tank.Go = false;
-            }
-            else if (e.Key == right && tank.Direction == Direction.Right)
-            {
-                tank.Go = false;
-            }
-            else if (e.Key == up && tank.Direction == Direction.Up)
-            {
-                tank.Go = false;
-            }
-            else if (e.Key == down && tank.Direction == Direction.Down)
-            {
-                tank.Go = false;
-            }           
-        }*/
-
-        public bool Shoot(KeyEventArgs e, int lastShotTime)
-        {
-            if (e.Key == shoot && lastShotTime>1000)
-            {
-                bullets.Add(new ViewBullet(tank.Shoot(), ref canvas));
-                return true;
-            }
-
-            return false;
         }
     }
 }

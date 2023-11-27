@@ -28,7 +28,7 @@ namespace BattleCity.Windows
         static double GameSize = HeightWindow * 0.9;
         DispatcherTimer gameTimer = new DispatcherTimer();
         static int timerMS = 20; //как часто запускается таймер
-        int timer;
+        public static int timer, totimer;
 
 
 
@@ -49,7 +49,6 @@ namespace BattleCity.Windows
             canvas.Width = GameSize;
             canvas.Height = GameSize;
 
-            timer = 0;
             player = new ViewPlayerTank(tank1, Key.Left, Key.Right, Key.Up, Key.Down, Key.Enter, 1, ref canvas);
 
        
@@ -60,17 +59,15 @@ namespace BattleCity.Windows
 
         private void GameTimerEventAsync(object sender, EventArgs e)
         {
-            timer += 20;
-            player.UpdateAsync();
+
+            player.Update();
             player.UpdateKeyboard();
         }
 
         private void map_KeyDown(object sender, KeyEventArgs e)
         {
-            if (player.Shoot(e, timer))
-            {
-                timer = 0;
-            }
+            player.Shoot(e);
+            
             //player.KeyDown(e);
         }
 

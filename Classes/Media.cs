@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using BattleCity.Windows;
 
 namespace BattleCity.Classes
 {
@@ -33,7 +36,8 @@ namespace BattleCity.Classes
         private ImageBrush[] frames;
         private double posX, posY, size;
         Canvas canvas;
-
+        int timerStart, frame;
+        
 
         public Media(double posX, double posY, double size, ref Canvas canvas)
         {
@@ -47,40 +51,33 @@ namespace BattleCity.Classes
             rectangle.Height = size;
             rectangle.Fill = frames[0];
 
+            frame = 1;
             Canvas.SetLeft(rectangle, posX);
             Canvas.SetBottom(rectangle, posY);
             canvas.Children.Add(rectangle);
+            timerStart = GameWindow.timer;
         }
 
         public async Task Boom()//Анимация взрыва
-        {
-            int frame;
-
-            frame = 1;
-
-            /*
-            TimerCallback tm = new TimerCallback(AnimBoom);
+        {     
 
             while (frame < frames.Length)
             {
-                Timer timer = new Timer(tm, frame, 5000, 100);
-                frame++;
-            }
-
-            
-            canvas.Children.Remove(rectangle);*/
-
-            while (frame < frames.Length)
-            {
-                //Timer timer = new Timer(tm, frame, 5000, 100);
                 rectangle.Fill = frames[frame];
                 frame++;
+
+                //Thread.Sleep(20);
+                //Console.WriteLine(frame.ToString() + " vvvvvv " + GameWindow.timer.ToString());
                 await Task.Run(() => Thread.Sleep(20));
             }
             canvas.Children.Remove(rectangle);
 
         }
 
+        public void Babah(Object source, ElapsedEventArgs e)
+        {
+            
+        }
 
 
         public static void Bang()//Анимация попадания пули по любому объекту
