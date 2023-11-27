@@ -37,21 +37,21 @@ namespace BattleCity.Classes.Model
         public bool isCollide(Wall wall)
         {
             if (Math.Max(PosX - Size / 2, wall.PosX - wall.Size / 2) <= Math.Min(PosX + Size / 2, wall.PosX + wall.Size / 2)
-            && Math.Max(PosX - Size / 2, wall.PosY - wall.Size / 2) <= Math.Min(PosX + Size / 2, wall.PosY + wall.Size / 2)) { return true; }
+            && Math.Max(PosY - Size / 2, wall.PosY - wall.Size / 2) <= Math.Min(PosY + Size / 2, wall.PosY + wall.Size / 2)) { return true; }
             return false;
         }
 
         public bool isCollide(Bullet bullet)
         {
             if (Math.Max(PosX - Size / 2, bullet.PosX - bullet.Size / 2) <= Math.Min(PosX + Size / 2, bullet.PosX + bullet.Size / 2)
-                && Math.Max(PosX - Size / 2, bullet.PosY - bullet.Size / 2) <= Math.Min(PosX + Size / 2, bullet.PosY + bullet.Size / 2)) { return true; }
+                && Math.Max(PosY - Size / 2, bullet.PosY - bullet.Size / 2) <= Math.Min(PosY + Size / 2, bullet.PosY + bullet.Size / 2)) { return true; }
             return false;
         }
 
         public bool isCollide(Tank tank)
         {
             if (Math.Max(PosX - Size / 2, tank.PosX - tank.Size / 2) <= Math.Min(PosX + Size / 2, tank.PosX + tank.Size / 2)
-                && Math.Max(PosX - Size / 2, tank.PosY - tank.Size / 2) <= Math.Min(PosX + Size / 2, tank.PosY + tank.Size / 2)) { return true; }
+                && Math.Max(PosY - Size / 2, tank.PosY - tank.Size / 2) <= Math.Min(PosY + Size / 2, tank.PosY + tank.Size / 2)) { return true; }
             return false;
         }
 

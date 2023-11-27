@@ -45,8 +45,8 @@ namespace BattleCity.Classes.Model
 
         public void startGame()
         {
-            Tank tank1 = new Tank(level.StartPosx1 *X, level.StartPosy1 * X, 5*X, 2*X, 6);
-            Tank tank2 = new Tank(level.StartPosx2 * X, level.StartPosy2 * X, 5*X, 2*X, 6);
+            Tank tank1 = new Tank(level.StartPosx1 * X, level.StartPosy1 * X, 10*X, 1*X, 6);
+            Tank tank2 = new Tank(level.StartPosx2 * X, level.StartPosy2 * X, 10*X, 1*X, 6);
             player1 = new ViewPlayerTank(tank1, Key.A, Key.D, Key.W, Key.S, Key.Space, 1, ref canvas);
             player2 = new ViewPlayerTank(tank2, Key.Left, Key.Right, Key.Up, Key.Down, Key.Enter, 1, ref canvas);
 
@@ -55,9 +55,22 @@ namespace BattleCity.Classes.Model
             gameTimer.Start();
         }
 
-
+        public void Colision()
+        {
+            if (player1.Tank.isCollide(player2.Tank))
+            {
+                switch (player1.Tank.Direction)
+                {
+                    case Direction.Left: player1.Tank.PosX += player1.Tank.Speed; break;
+                    case Direction.Right: player1.Tank.PosX -= player1.Tank.Speed; break;
+                    case Direction.Up: player1.Tank.PosY -= player1.Tank.Speed; break;
+                    case Direction.Down: player1.Tank.PosY += player1.Tank.Speed; break;
+                }
+            }
+        }
         public void GameTimerEvent(object sender, EventArgs e)
         {
+            Colision();
             player1.Update();
             player1.UpdateKeyboard();
             player2.Update();
