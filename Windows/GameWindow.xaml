@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="GameWindow" Height="450" Width="800" WindowState ="Maximized" WindowStyle="None">
 
-    <Grid>
-       
-        <Canvas Background="Aqua" x:Name="canvas" Focusable="True" PreviewKeyDown="map_KeyDown"/>
+    <Grid x:Name="grid">
+
+        <Canvas Background="#1C1C1C" x:Name="canvas" Focusable="True" PreviewKeyDown="map_KeyDown"/>
 
     </Grid>
 

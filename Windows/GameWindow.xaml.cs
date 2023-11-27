@@ -30,6 +30,8 @@ namespace BattleCity.Windows
             InitializeComponent();
             game = new Game(1, ref canvas);
             game.startGame();
+            Image heart = new Image();
+
 
             Width = game.HeightWindow ;
             Height = game.WeightWindow;
@@ -47,6 +49,7 @@ namespace BattleCity.Windows
             game.KeyDown(e);
             if (game.GameOver())
             {
+
                 new MainWindow().Show();
                 Close();
             }

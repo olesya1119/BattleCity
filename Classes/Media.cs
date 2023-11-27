@@ -24,7 +24,7 @@ namespace BattleCity.Classes
 
     enum AnimationFrames
     {
-        DrivePlayerTank1, Boom, Bullet
+        DrivePlayerTank1, DrivePlayerTank2, Boom, Bullet
     }
 
     /// <summary>
@@ -32,65 +32,7 @@ namespace BattleCity.Classes
     /// </summary>
     class Media
     {
-        private Rectangle rectangle;
-        private ImageBrush[] frames;
-        private double posX, posY, size;
-        Canvas canvas;
-        int frame;
-        
-
-        public Media(double posX, double posY, double size, ref Canvas canvas)
-        {
-            this.posX = posX;
-            this.posY = posY;
-            this.size = size;
-            this.canvas = canvas;
-            rectangle = new Rectangle();
-            frames = getAnimationFrames(AnimationFrames.Boom);
-            rectangle.Width = size;
-            rectangle.Height = size;
-            rectangle.Fill = frames[0];
-
-            frame = 1;
-            Canvas.SetLeft(rectangle, posX);
-            Canvas.SetBottom(rectangle, posY);
-            canvas.Children.Add(rectangle);
-        }
-
-        public async Task Boom()//Анимация взрыва
-        {     
-
-            while (frame < frames.Length)
-            {
-                rectangle.Fill = frames[frame];
-                frame++;
-
-                //Thread.Sleep(20);
-                //Console.WriteLine(frame.ToString() + " vvvvvv " + GameWindow.timer.ToString());
-                await Task.Run(() => Thread.Sleep(20));
-            }
-            canvas.Children.Remove(rectangle);
-
-        }
-
-        public void Babah(Object source, ElapsedEventArgs e)
-        {
-            
-        }
-
-
-        public static void Bang()//Анимация попадания пули по любому объекту
-        {
-            
-
-        }
-
-        public static void Birth()//Анимация "рождения танка"
-        { 
-        
-        }
-
-
+       
         
         public static ImageBrush getTexture(Texture texture)
         {
@@ -121,6 +63,9 @@ namespace BattleCity.Classes
             {
                 case AnimationFrames.DrivePlayerTank1:
                     uri = new Uri(@"../../Res/Images/PlayerTank1.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case AnimationFrames.DrivePlayerTank2:
+                    uri = new Uri(@"../../Res/Images/PlayerTank2.png", UriKind.RelativeOrAbsolute);
                     break;
                 case AnimationFrames.Bullet:
                     uri = new Uri(@"../../Res/Images/Bullet.png", UriKind.RelativeOrAbsolute);

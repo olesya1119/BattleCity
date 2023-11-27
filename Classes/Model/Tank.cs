@@ -35,6 +35,16 @@ namespace BattleCity.Classes
             HP = hp;
         }
 
+        public Tank(Tank tank)
+        {
+            Go = tank.go;
+            Direction = tank.Direction;
+            PosX = tank.PosX;
+            PosY = tank.PosY;
+            Size = tank.Size;
+            Speed = tank.Speed;
+            HP = tank.HP;
+        }
         /// <summary>
         /// Совершить выстрел. Если танк не имеет "живой" пули, то она создается
         /// </summary>

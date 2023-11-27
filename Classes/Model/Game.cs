@@ -49,7 +49,7 @@ namespace BattleCity.Classes.Model
             Tank tank1 = new Tank(level.StartPosx1 * X, level.StartPosy1 * X, 10*X, 1*X, 6);
             Tank tank2 = new Tank(level.StartPosx2 * X, level.StartPosy2 * X, 10*X, 1*X, 6);
             player1 = new ViewPlayerTank(tank1, Key.A, Key.D, Key.W, Key.S, Key.Space, 1, ref canvas);
-            player2 = new ViewPlayerTank(tank2, Key.Left, Key.Right, Key.Up, Key.Down, Key.Enter, 1, ref canvas);
+            player2 = new ViewPlayerTank(tank2, Key.Left, Key.Right, Key.Up, Key.Down, Key.Enter, 2, ref canvas);
 
             gameTimer.Tick += GameTimerEvent;
             gameTimer.Interval = TimeSpan.FromMilliseconds(20);

@@ -56,7 +56,7 @@ namespace BattleCity.Classes
             }
             else
             {
-                frames = Media.getAnimationFramesWithRotate(AnimationFrames.DrivePlayerTank1);
+                frames = Media.getAnimationFramesWithRotate(AnimationFrames.DrivePlayerTank2);
             }
 
             frame = 0;
