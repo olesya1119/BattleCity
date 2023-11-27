@@ -58,23 +58,51 @@ namespace BattleCity.Classes.Model
 
         public void Colision()
         {
-           if (player1.Tank.isCollide(player2.Tank))
-           {
-                player1.Tank.CollideWithTank();
-                player2.Tank.CollideWithTank();
-           }
+            Tank tnk1 = new Tank(player1.Tank), tnk2 = new Tank(player2.Tank);
+            if (tnk1.Go)
+            {
+                switch (tnk1.Direction)
+                {
+                    case Direction.Left:
+                        tnk1.PosX -= tnk1.Speed; break;
+                    case Direction.Right:
+                        tnk1.PosX += tnk1.Speed; break;
+                    case Direction.Up:
+                        tnk1.PosY += tnk1.Speed; break;
+                    case Direction.Down:
+                        tnk1.PosY -= tnk1.Speed; break;
+                }
+                if (tnk1.isCollide(tnk2)) player1.Tank.Go = false;
+            }
+            if (tnk2.Go)
+            {
+                switch (tnk2.Direction)
+                {
+                    case Direction.Left:
+                        tnk2.PosX -= tnk2.Speed; break;
+                    case Direction.Right:
+                        tnk2.PosX += tnk2.Speed; break;
+                    case Direction.Up:
+                        tnk2.PosY += tnk2.Speed; break;
+                    case Direction.Down:
+                        tnk2.PosY -= tnk2.Speed; break;
+                }
+                if (tnk2.isCollide(tnk1)) player2.Tank.Go = false;
+            }
 
-           if (player1.ViewBullet != null && player2.Tank.isCollide(player1.ViewBullet.Bullet))
-           {
+
+
+            if (player1.ViewBullet != null && player2.Tank.isCollide(player1.ViewBullet.Bullet))
+            {
                 player1.ViewBullet.Death();
                 player2.Tank.CollideWithBullet();
-           }
+            }
 
-           if (player2.ViewBullet != null && player1.Tank.isCollide(player2.ViewBullet.Bullet))
-           {
+            if (player2.ViewBullet != null && player1.Tank.isCollide(player2.ViewBullet.Bullet))
+            {
                 player2.ViewBullet.Death();
                 player1.Tank.CollideWithBullet();
-           }
+            }
         }
         public void GameTimerEvent(object sender, EventArgs e)
         {

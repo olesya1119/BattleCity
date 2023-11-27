@@ -20,7 +20,16 @@ namespace BattleCity.Classes
         /// </summary>
         public bool Go { get { return go; } set { go = value; } }
 
-
+        public Tank(Tank tank)
+        {
+            Go = tank.go;
+            Direction = tank.Direction;
+            PosX = tank.PosX;
+            PosY = tank.PosY;
+            Size = tank.Size;
+            Speed = tank.Speed;
+            HP = tank.HP;
+        }
 
         public Tank() {}
 
@@ -100,7 +109,6 @@ namespace BattleCity.Classes
         /// </summary>
         private void Drive() //Движение танка
         {
-             
             if (go && Direction == Direction.Left)
             {
                 if (PosX - Size / 2 - Speed <= 0)
