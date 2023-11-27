@@ -16,7 +16,7 @@ namespace BattleCity.Classes
         private double startPosx1, startPosy1, startPosx2, startPosy2;  //Стартовые позиции игрока1 и игрока2
 
         public int ID { get { return id; } set { id = value; } }
-        public List<Wall> Walls { get { return walls; } }
+        public List<Wall> Walls { get { return walls; } set { walls = value; } }
         public double StartPosx1 { get { return startPosx1; } set { startPosx1 = value; } }
         public double StartPosy1 { get { return startPosy1; } set { startPosy1 = value; } }
         public double StartPosx2 { get { return startPosx2; } set { startPosx2 = value; } }

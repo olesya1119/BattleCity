@@ -36,16 +36,7 @@ namespace BattleCity.Classes.Model
             gameSize = heightWindow* 0.9;
             X = gameSize / 200;
 
-            List<Wall> walls = new List<Wall>();
-            walls.Add(new Wall(TypeWall.Brick, 56 * X, 50 * X, 5 * X ));
-            walls.Add(new Wall(TypeWall.Brick, 14 * X, 50 * X, 5 * X));
-            walls.Add(new Wall(TypeWall.Brick, 22 * X, 50 * X, 5 * X));
-            walls.Add(new Wall(TypeWall.Brick, 170 * X, 64 * X, 5 * X));
-            walls.Add(new Wall(TypeWall.Brick, 55 * X, 100 * X, 5 * X));
-
-
-            //level = new Level(id);
-            level = new Level(1, walls, 70, 100, 20, 100);
+            level = new Level(id);
             this.canvas = canvas;
             
             for (int i = 0; i < level.Walls.Count; i++) {

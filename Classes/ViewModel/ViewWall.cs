@@ -31,9 +31,13 @@ namespace BattleCity.Classes
             {
                 rectangle.Fill = Media.getTexture(Texture.Brick);
             }
+            else if (wall.TypeWall == TypeWall.Brick)
+            {
+                rectangle.Fill = Media.getTexture(Texture.Water);
+            }
             else
             {
-                rectangle.Fill = Media.getTexture(Texture.Error);
+                rectangle.Fill = Media.getTexture(Texture.Water);
             }
 
             Canvas.SetLeft(rectangle, wall.PosX - wall.Size / 2);
