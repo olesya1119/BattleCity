@@ -54,6 +54,10 @@ namespace BattleCity.Classes
             {
                 frames = Media.getAnimationFramesWithRotate(AnimationFrames.DrivePlayerTank1);
             }
+            else
+            {
+                frames = Media.getAnimationFramesWithRotate(AnimationFrames.DrivePlayerTank1);
+            }
 
             frame = 0;
             rectangle = new Rectangle();

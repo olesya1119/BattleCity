@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using BattleCity.Classes.Model;
 
 namespace BattleCity.Windows
 {
@@ -22,58 +23,29 @@ namespace BattleCity.Windows
     /// </summary>
     public partial class GameWindow : Window
     {
-
-        static double HeightWindow = System.Windows.SystemParameters.PrimaryScreenHeight;
-        static double WeightWindow = System.Windows.SystemParameters.PrimaryScreenWidth;
-        static double GameSize = HeightWindow * 0.9;
-        DispatcherTimer gameTimer = new DispatcherTimer();
-        static int timerMS = 20; //как часто запускается таймер
-        public static int timer, totimer;
-
-
-
-        Tank tank1 = new Tank(GameSize * 0.5, GameSize * 0.5, 50, 5, 5);
-
-        ViewPlayerTank player;
-
-
-
+        Game game;
 
         public GameWindow()
-        {   
-            Width = HeightWindow ;
-            Height = WeightWindow;
+        {
             InitializeComponent();
+            game = new Game(1, ref canvas);
+            game.startGame();
+
+            Width = game.HeightWindow ;
+            Height = game.WeightWindow;
+            
             canvas.Focus();
 
-            canvas.Width = GameSize;
-            canvas.Height = GameSize;
-
-            player = new ViewPlayerTank(tank1, Key.Left, Key.Right, Key.Up, Key.Down, Key.Enter, 1, ref canvas);
-
-       
-            gameTimer.Tick += GameTimerEventAsync;
-            gameTimer.Interval = TimeSpan.FromMilliseconds(timerMS);
-            gameTimer.Start();
+            canvas.Width = game.GameSize;
+            canvas.Height = game.GameSize;
+            
         }
 
-        private void GameTimerEventAsync(object sender, EventArgs e)
-        {
-
-            player.Update();
-            player.UpdateKeyboard();
-        }
 
         private void map_KeyDown(object sender, KeyEventArgs e)
         {
-            player.Shoot(e);
-            
-            //player.KeyDown(e);
+            game.KeyDown(e);
         }
 
-        private void map_KeyUp(object sender, KeyEventArgs e)
-        {
-            //player.KeyUp(e);
-        }
     }
 }

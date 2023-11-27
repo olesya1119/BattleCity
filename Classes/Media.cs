@@ -55,7 +55,7 @@ namespace BattleCity.Classes
             Canvas.SetLeft(rectangle, posX);
             Canvas.SetBottom(rectangle, posY);
             canvas.Children.Add(rectangle);
-            timerStart = GameWindow.timer;
+
         }
 
         public async Task Boom()//Анимация взрыва
