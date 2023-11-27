@@ -19,7 +19,7 @@ namespace BattleCity.Classes
 {
     enum Texture
     {
-        Bullet
+        Bullet, Error
     }
 
     enum AnimationFrames
@@ -36,7 +36,7 @@ namespace BattleCity.Classes
         private ImageBrush[] frames;
         private double posX, posY, size;
         Canvas canvas;
-        int timerStart, frame;
+        int frame;
         
 
         public Media(double posX, double posY, double size, ref Canvas canvas)
@@ -55,7 +55,7 @@ namespace BattleCity.Classes
             Canvas.SetLeft(rectangle, posX);
             Canvas.SetBottom(rectangle, posY);
             canvas.Children.Add(rectangle);
-
+            timerStart = GameWindow.timer;
         }
 
         public async Task Boom()//Анимация взрыва
