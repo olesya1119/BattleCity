@@ -45,6 +45,11 @@ namespace BattleCity.Windows
         private void map_KeyDown(object sender, KeyEventArgs e)
         {
             game.KeyDown(e);
+            if (game.GameOver())
+            {
+                new MainWindow().Show();
+                Close();
+            }
         }
 
     }

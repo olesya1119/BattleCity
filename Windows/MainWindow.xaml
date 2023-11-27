@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BattleCity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowState ="Maximized" WindowStyle="None">
-    
+        Title="MainWindow" Height="450" Width="800" WindowState ="Maximized" WindowStyle="None"
+        >
+
     <Grid ShowGridLines="False">
+
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -18,8 +20,9 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button x:Name="start" Grid.Column="1" Grid.Row="1" Content="Начать игру" Click="start_Click"/>
-        
+        <Image Source="/Res/Images/MainMenuBackground.jpg" Grid.ColumnSpan="3" Grid.RowSpan="3" />
+        <Button x:Name="start" Grid.Column="1" Grid.Row="1" Content="Start" Click="start_Click" Margin="10,39,10,75" Background="#6e918b" BorderBrush="Black" Cursor="AppStarting" FontFamily="Algerian" FontSize="24"/>
+        <Button x:Name="exit" Grid.Column="1" Grid.Row="2" Content="exit" Click="exit_Click" Margin="63,29,76,91" Background="#6e918b" BorderBrush="Black" Cursor="AppStarting" FontFamily="Algerian" FontSize="24"/>
     </Grid>
-    
+
 </Window>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Threading;
 
 namespace BattleCity.Classes.Model
 {
@@ -57,16 +58,23 @@ namespace BattleCity.Classes.Model
 
         public void Colision()
         {
-            if (player1.Tank.isCollide(player2.Tank))
-            {
-                switch (player1.Tank.Direction)
-                {
-                    case Direction.Left: player1.Tank.PosX += player1.Tank.Speed; break;
-                    case Direction.Right: player1.Tank.PosX -= player1.Tank.Speed; break;
-                    case Direction.Up: player1.Tank.PosY -= player1.Tank.Speed; break;
-                    case Direction.Down: player1.Tank.PosY += player1.Tank.Speed; break;
-                }
-            }
+           if (player1.Tank.isCollide(player2.Tank))
+           {
+                player1.Tank.CollideWithTank();
+                player2.Tank.CollideWithTank();
+           }
+
+           if (player1.ViewBullet != null && player2.Tank.isCollide(player1.ViewBullet.Bullet))
+           {
+                player1.ViewBullet.Death();
+                player2.Tank.CollideWithBullet();
+           }
+
+           if (player2.ViewBullet != null && player1.Tank.isCollide(player2.ViewBullet.Bullet))
+           {
+                player2.ViewBullet.Death();
+                player1.Tank.CollideWithBullet();
+           }
         }
         public void GameTimerEvent(object sender, EventArgs e)
         {
@@ -80,7 +88,12 @@ namespace BattleCity.Classes.Model
         {
             player1.Shoot(e);
             player2.Shoot(e);
+        }
 
+        public bool GameOver()
+        {
+            if (player1.Tank.HP == 0 || player2.Tank.HP == 0) { return true; }
+            return false;
         }
 
         

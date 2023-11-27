@@ -40,9 +40,15 @@ namespace BattleCity.Classes
             Canvas.SetBottom(rectangle, bullet.PosY - bullet.Size / 2);
 
             if (bullet.HP ==  0) { 
-                canvas.Children.Remove(rectangle);
+                Death();
             }
             
+        }
+
+        public void Death()
+        {
+            canvas.Children.Remove(rectangle);
+            bullet.HP = 0;
         }
     }
 }

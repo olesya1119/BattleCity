@@ -62,7 +62,16 @@ namespace BattleCity.Classes
             return new Bullet(PosBulletX, PosBulletY, bulletSize, Speed * 2, Direction);
             
         }
-
+        public void CollideWithTank() //Столкновение с пулей
+        {
+            switch (Direction)
+            {
+                case Direction.Left: PosX += Speed; break;
+                case Direction.Right: PosX -= Speed; break;
+                case Direction.Up: PosY -= Speed; break;
+                case Direction.Down: PosY += Speed; break;
+            }
+        }
         public void CollideWithBullet() //Столкновение с пулей
         {
             HP--;

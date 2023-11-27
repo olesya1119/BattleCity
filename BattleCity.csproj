@@ -155,7 +155,10 @@
     <Resource Include="Res\Images\PlayerTank1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Res\Images\Boom.png" />
+    <Resource Include="Res\Images\MainMenuBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Images\Heart.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
