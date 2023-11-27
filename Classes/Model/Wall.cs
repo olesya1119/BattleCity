@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BattleCity.Classes.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,36 +9,36 @@ using System.Windows;
 
 namespace BattleCity.Classes
 {
-    enum TypeWall {Brick, Steel, Water}
-    internal class Wall
+    enum TypeWall {Steel, Brick, Water}
+    internal class Wall : GameObject
     {
         private TypeWall typeWall;
-        private double posX, posY, size;
         private bool destructibility = false;
-
+        private bool bulletCanFly = false;
         public TypeWall TypeWall { get { return typeWall; } set { typeWall = value; } }
-        public double PosX { get { return posX; } set { posX = value; } }
-        public double PosY { get { return posY; } set { posY = value; } }
-        public double Size { get { return size; } set { size = value; } }
         public bool Destructibility { get {  return destructibility; } set { destructibility = value; } }
-
-        public Wall(TypeWall typeWall, double posX, double posY, double size, bool destructibility)
-        {
-            this.typeWall = typeWall;
-            this.posX = posX;
-            this.posY = posY;
-            this.size = size;
-            this.destructibility = destructibility;
-        }
-
+        public bool BulletCanFly { get { return bulletCanFly; } set { bulletCanFly = value; } }
         public Wall()
         {
             typeWall = 0;
-            posX = 0;
-            posY = 0;
-            size = 1;
+            PosX = 0;
+            PosY = 0;
+            Size = 1;
             destructibility = false;
+            bulletCanFly = false;
+        }
+        public Wall(TypeWall typeWall, double posX, double posY, double size)
+        {
+            this.typeWall = typeWall;
+            PosX = posX;
+            PosY = posY;
+            Size = size;
+            switch (typeWall)
+            {
+                case TypeWall.Steel: destructibility = false; bulletCanFly = false; break; 
+                case TypeWall.Brick: destructibility = true; bulletCanFly = false; break; 
+                case TypeWall.Water: destructibility = false; bulletCanFly = true; break;
+            }
         }
     }
-
 }

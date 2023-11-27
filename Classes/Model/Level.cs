@@ -13,14 +13,10 @@ namespace BattleCity.Classes
     {
         int id;
         private List<Wall> walls; //Массив из стен, расположенных на карте
-        private int maxEnemyTanks, numberOfplayrs, numberOfenemy; //Максимально количество вражеских танков одновременно, количество врагов
         private double startPosx1, startPosy1, startPosx2, startPosy2;  //Стартовые позиции игрока1 и игрока2
 
         public int ID { get { return id; } set { id = value; } }
         public List<Wall> Walls { get { return walls; } }
-        public int MaxEnemyTanks { get { return maxEnemyTanks; } set { maxEnemyTanks = value; } }
-        public int NumberOfplayrs { get { return numberOfplayrs; } set { numberOfplayrs = value; } }
-        public int NumberOfenemy { get { return numberOfenemy; } set { numberOfenemy = value; } }
         public double StartPosx1 { get { return startPosx1; } set { startPosx1 = value; } }
         public double StartPosy1 { get { return startPosy1; } set { startPosy1 = value; } }
         public double StartPosx2 { get { return startPosx2; } set { startPosx2 = value; } }
@@ -32,10 +28,7 @@ namespace BattleCity.Classes
             string jsonString = File.ReadAllText(fileName); ;
             Level level = JsonSerializer.Deserialize<Level>(jsonString);
             this.id = level.id;
-            walls = level.walls;    
-            maxEnemyTanks = level.maxEnemyTanks;
-            numberOfplayrs = level.numberOfplayrs;
-            numberOfenemy = level.numberOfenemy;
+            walls = level.walls;
             startPosx1 = level.startPosx1;
             startPosy1 = level.startPosy1;
             startPosx2 = level.startPosx2;
@@ -48,13 +41,10 @@ namespace BattleCity.Classes
             File.WriteAllText(fileName, jsonString);
         }
 
-        public Level(int id, List<Wall> walls, int maxEnemyTanks, int numberOfplayrs, int numberOfenemy, double startPosx1, double startPosy1, double startPosx2, double startPosy2)
+        public Level(int id, List<Wall> walls, double startPosx1, double startPosy1, double startPosx2, double startPosy2)
         {
             this.id = id;
             this.walls = walls;
-            this.maxEnemyTanks = maxEnemyTanks;
-            this.numberOfplayrs = numberOfplayrs;
-            this.numberOfenemy = numberOfenemy;
             this.startPosx1 = startPosx1;
             this.startPosy1 = startPosy1;
             this.startPosx2 = startPosx2;
@@ -65,9 +55,6 @@ namespace BattleCity.Classes
         {
             id = 0;
             walls = null;
-            maxEnemyTanks = 0;
-            numberOfplayrs = 0;
-            numberOfenemy = 0;
             startPosx1 = 0;
             startPosy1 = 0;
             startPosx2 = 0;
