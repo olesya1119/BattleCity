@@ -121,7 +121,7 @@ namespace BattleCity.Classes.Model
                 {
                     if (player1.ViewBullet != null && player1.ViewBullet.Bullet.isCollide(viewWalls[i].Wall))
                     {
-                        player1.ViewBullet.Death();
+                        if (!viewWalls[i].Wall.BulletCanFly) player1.ViewBullet.Death();
                         if (viewWalls[i].Wall.Destructibility)
                         {
                             viewWalls[i].Death();
@@ -131,7 +131,7 @@ namespace BattleCity.Classes.Model
                     }
                     if (player2.ViewBullet != null && player2.ViewBullet.Bullet.isCollide(viewWalls[i].Wall))
                     {
-                        player2.ViewBullet.Death();
+                        if (!viewWalls[i].Wall.BulletCanFly) player2.ViewBullet.Death();
                         if (viewWalls[i].Wall.Destructibility)
                         {
                             viewWalls[i].Death();
