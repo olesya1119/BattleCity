@@ -21,8 +21,19 @@ namespace BattleCity.Classes
             rectangle = new Rectangle();
             rectangle.Height = wall.Size;
             rectangle.Width = wall.Size;
+            
+            if (wall.TypeWall == TypeWall.Steel) { 
+                rectangle.Fill = Media.getTexture(Texture.Steel);
+            }
+            else if (wall.TypeWall == TypeWall.Brick)
+            {
+                rectangle.Fill = Media.getTexture(Texture.Brick);
+            }
+            else
+            {
+                rectangle.Fill = Media.getTexture(Texture.Error);
+            }
 
-            rectangle.Fill = Media.getTexture(Texture.Error);
             Canvas.SetLeft(rectangle, wall.PosX - wall.Size / 2);
             Canvas.SetBottom(rectangle, wall.PosY - wall.Size / 2);
 

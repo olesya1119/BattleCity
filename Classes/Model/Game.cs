@@ -15,6 +15,7 @@ namespace BattleCity.Classes.Model
         private double heightWindow;
         private double weightWindow;
         private double gameSize;
+        private List<ViewWall> viewWalls = new List<ViewWall>();
         DispatcherTimer gameTimer = new DispatcherTimer();
 
         private Level level;
@@ -35,13 +36,21 @@ namespace BattleCity.Classes.Model
             gameSize = heightWindow* 0.9;
             X = gameSize / 200;
 
+            List<Wall> walls = new List<Wall>();
+            walls.Add(new Wall(TypeWall.Brick, 56 * X, 50 * X, 5 * X ));
+            walls.Add(new Wall(TypeWall.Brick, 14 * X, 50 * X, 5 * X));
+            walls.Add(new Wall(TypeWall.Brick, 22 * X, 50 * X, 5 * X));
+            walls.Add(new Wall(TypeWall.Brick, 170 * X, 64 * X, 5 * X));
+            walls.Add(new Wall(TypeWall.Brick, 55 * X, 100 * X, 5 * X));
 
 
             //level = new Level(id);
-            level = new Level(1, new List<Wall> { }, 70, 100, 20, 100);
+            level = new Level(1, walls, 70, 100, 20, 100);
             this.canvas = canvas;
             
-
+            for (int i = 0; i < level.Walls.Count; i++) {
+                viewWalls.Add(new ViewWall(level.Walls[i], ref canvas));
+            }
         }
 
         public void startGame()
@@ -51,6 +60,7 @@ namespace BattleCity.Classes.Model
             player1 = new ViewPlayerTank(tank1, Key.A, Key.D, Key.W, Key.S, Key.Space, 1, ref canvas);
             player2 = new ViewPlayerTank(tank2, Key.Left, Key.Right, Key.Up, Key.Down, Key.Enter, 2, ref canvas);
 
+            
             gameTimer.Tick += GameTimerEvent;
             gameTimer.Interval = TimeSpan.FromMilliseconds(20);
             gameTimer.Start();
