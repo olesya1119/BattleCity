@@ -19,7 +19,7 @@ namespace BattleCity.Classes
 {
     enum Texture
     {
-        Bullet, Error, Steel, Brick
+        Bullet, Error, Steel, Brick, Water
     }
 
     enum AnimationFrames
@@ -47,6 +47,9 @@ namespace BattleCity.Classes
                     break;
                 case Texture.Steel:
                     uri = new Uri(@"../../Res/Images/Steel.png", UriKind.RelativeOrAbsolute);
+                    break;
+                case Texture.Water:
+                    uri = new Uri(@"../../Res/Images/Water.png", UriKind.RelativeOrAbsolute);
                     break;
                 default:
                     uri = new Uri(@"../../Res/Images/Error.png", UriKind.RelativeOrAbsolute);
