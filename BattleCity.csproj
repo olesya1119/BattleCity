@@ -104,6 +104,7 @@
     <Compile Include="Classes\Model\Map.cs" />
     <Compile Include="Classes\Model\GameObject.cs" />
     <Compile Include="Classes\Model\Tank.cs" />
+    <Compile Include="Classes\ViewModel\ViewWall.cs" />
     <Compile Include="Classes\ViewModel\ViewBullet.cs" />
     <Compile Include="Classes\ViewModel\ViewPlayerTank.cs" />
     <Compile Include="Classes\Model\Wall.cs" />
