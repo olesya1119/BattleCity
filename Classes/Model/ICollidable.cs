@@ -1,8 +1,10 @@
-﻿using System;
+﻿using BattleCity.Classes.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Shapes;
 
 namespace BattleCity.Classes
 {
@@ -12,19 +14,8 @@ namespace BattleCity.Classes
     interface ICollidable
     {
         /// <summary>
-        /// Проверка на столкновение объекта со стеной.
+        /// Проверка на столкновение объекта с другим объектом.
         /// </summary>
-        bool isCollide(Wall wall);
-
-        /// <summary>
-        /// Проверка на столкновение объекта с пулей.
-        /// </summary>
-        bool isCollide(Bullet bullet);
-
-        /// <summary>
-        /// Проверка на столкновение объекта с танком.
-        /// </summary>
-        bool isCollide(Tank tank);
-
+        bool isCollide(GameObject gameObject);
     }
 }

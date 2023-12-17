@@ -24,9 +24,5 @@ namespace BattleCity.Classes.Model
         /// Ширина и длина объекта.
         /// </summary>
         public double Size { get { return size; } set { size = value; } }
-
-
-
-
     }
 }

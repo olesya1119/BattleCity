@@ -20,6 +20,7 @@ namespace BattleCity.Classes.Model
 
         private Level level;
         private ViewPlayerTank player1, player2;
+        private Tank tnk1, tnk2;
         private Canvas canvas;
         public double X; //Размер поля 200*200. При перемножении на X получем длину в пикселях экрана
         public Level Level { get; set; }
@@ -48,6 +49,8 @@ namespace BattleCity.Classes.Model
         {
             Tank tank1 = new Tank(level.StartPosx1 * X, level.StartPosy1 * X, 10*X, 1*X, 6);
             Tank tank2 = new Tank(level.StartPosx2 * X, level.StartPosy2 * X, 10*X, 1*X, 6);
+            tnk1 = new Tank(tank1);
+            tnk2 = new Tank(tank2);
             player1 = new ViewPlayerTank(tank1, Key.A, Key.D, Key.W, Key.S, Key.Space, 1, ref canvas);
             player2 = new ViewPlayerTank(tank2, Key.Left, Key.Right, Key.Up, Key.Down, Key.Enter, 2, ref canvas);
 
@@ -56,95 +59,72 @@ namespace BattleCity.Classes.Model
             gameTimer.Interval = TimeSpan.FromMilliseconds(20);
             gameTimer.Start();
         }
-
-        public void Colision()
+        void tankCanGo(ViewPlayerTank p)
         {
-            Tank tnk1 = new Tank(player1.Tank), tnk2 = new Tank(player2.Tank);
-            if (tnk1.Go)
+            if (p.Tank.Go)
             {
-                switch (tnk1.Direction)
+                switch (p.Tank.Direction)
                 {
                     case Direction.Left:
-                        tnk1.PosX -= tnk1.Speed; break;
+                        tnk1.PosX -= p.Tank.Speed; break;
                     case Direction.Right:
-                        tnk1.PosX += tnk1.Speed; break;
+                        tnk1.PosX += p.Tank.Speed; break;
                     case Direction.Up:
-                        tnk1.PosY += tnk1.Speed; break;
+                        tnk1.PosY += p.Tank.Speed; break;
                     case Direction.Down:
-                        tnk1.PosY -= tnk1.Speed; break;
+                        tnk1.PosY -= p.Tank.Speed; break;
                 }
-                if (tnk1.isCollide(tnk2)) player1.Tank.Go = false;
+                if (tnk1.isCollide(tnk2)) { p.Tank.Go = false; return; }
                 for (int i = 0; i < viewWalls.Count; i++)
                 {
                     if (tnk1.isCollide(viewWalls[i].Wall))
                     {
-                        player1.Tank.Go = false;
-                        break;
+                        p.Tank.Go = false;
+                        return;
                     }
                 }
             }
-            if (tnk2.Go)
+        }
+        bool checkWall(ViewPlayerTank p, List<ViewWall> viewWalls, int i)
+        {
+            if (p.ViewBullet != null && p.ViewBullet.Bullet.isCollide(viewWalls[i].Wall))
             {
-                switch (tnk2.Direction)
+                if (!viewWalls[i].Wall.BulletCanFly) p.ViewBullet.Death();
+                if (viewWalls[i].Wall.Destructibility)
                 {
-                    case Direction.Left:
-                        tnk2.PosX -= tnk2.Speed; break;
-                    case Direction.Right:
-                        tnk2.PosX += tnk2.Speed; break;
-                    case Direction.Up:
-                        tnk2.PosY += tnk2.Speed; break;
-                    case Direction.Down:
-                        tnk2.PosY -= tnk2.Speed; break;
-                }
-                if (tnk2.isCollide(tnk1)) player2.Tank.Go = false;
-                for (int i = 0; i < viewWalls.Count; i++)
-                {
-                    if (tnk2.isCollide(viewWalls[i].Wall))
-                    {
-                        player2.Tank.Go = false;
-                        break;
-                    }
+                    viewWalls[i].Death();
+                    viewWalls.RemoveAt(i);
+                    return true;
                 }
             }
+            return false;
+        }
+        void checkBullet(ViewPlayerTank p1, ViewPlayerTank p2)
+        {
+            if (p1.ViewBullet != null && p2.Tank.isCollide(p1.ViewBullet.Bullet))
+            {
+                p1.ViewBullet.Death();
+                p2.Tank.CollideWithBullet();
+            }
+        }
+        public void Colision()
+        {
+            tnk1.PosX = player1.Tank.PosX;
+            tnk1.PosY = player1.Tank.PosY;
+            tnk2.PosX = player2.Tank.PosX;
+            tnk2.PosY = player2.Tank.PosY;
+            tankCanGo(player1);
+            tankCanGo(player2);
             if (player1.ViewBullet != null || player2.ViewBullet != null)
             {
                 for (int i = 0; i < viewWalls.Count; i++)
                 {
-                    if (player1.ViewBullet != null && player1.ViewBullet.Bullet.isCollide(viewWalls[i].Wall))
-                    {
-                        if (!viewWalls[i].Wall.BulletCanFly) player1.ViewBullet.Death();
-                        if (viewWalls[i].Wall.Destructibility)
-                        {
-                            viewWalls[i].Death();
-                            viewWalls.RemoveAt(i);
-                            break;
-                        }
-                    }
-                    if (player2.ViewBullet != null && player2.ViewBullet.Bullet.isCollide(viewWalls[i].Wall))
-                    {
-                        if (!viewWalls[i].Wall.BulletCanFly) player2.ViewBullet.Death();
-                        if (viewWalls[i].Wall.Destructibility)
-                        {
-                            viewWalls[i].Death();
-                            viewWalls.RemoveAt(i);
-                            break;
-                        }
-                    }
+                    if (checkWall(player1, viewWalls, i)) break;
+                    if (checkWall(player2, viewWalls, i)) break;
                 }
             }
-            
-
-            if (player1.ViewBullet != null && player2.Tank.isCollide(player1.ViewBullet.Bullet))
-            {
-                player1.ViewBullet.Death();
-                player2.Tank.CollideWithBullet();
-            }
-
-            if (player2.ViewBullet != null && player1.Tank.isCollide(player2.ViewBullet.Bullet))
-            {
-                player2.ViewBullet.Death();
-                player1.Tank.CollideWithBullet();
-            }
+            checkBullet(player1, player2);
+            checkBullet(player2, player1);
         }
         public void GameTimerEvent(object sender, EventArgs e)
         {

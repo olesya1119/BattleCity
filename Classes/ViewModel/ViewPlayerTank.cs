@@ -31,10 +31,21 @@ namespace BattleCity.Classes
         public Tank Tank { get { return tank; } }
         public Rectangle Rectangle { get { return rectangle; } }
         public Canvas Canvas { get { return canvas; } }
-
+        /// <summary>
+        /// Нажата клавиша влево.
+        /// </summary>
         public Key Left { get { return left; } }
-        public Key Right { get { return right; } }  
+        /// <summary>
+        /// Нажата клавиша вправо.
+        /// </summary>
+        public Key Right { get { return right; } }
+        /// <summary>
+        /// Нажата клавиша вверх.
+        /// </summary>
         public Key Up { get { return up; } }
+        /// <summary>
+        /// Нажата клавиша вниз.
+        /// </summary>
         public Key Down { get { return down; } }
         public ViewBullet ViewBullet { get { return viewBullet; } }
 
