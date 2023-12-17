@@ -11,19 +11,20 @@ namespace BattleCity.Classes
 {
     internal class ViewWall
     {
-        private Wall wall;
         private Rectangle rectangle;
         private Canvas canvas;
-        public Wall Wall { get { return wall; } }
+        public Wall Wall { get; }
         public ViewWall(Wall wall, ref Canvas canvas)
         {
-            this.wall = wall;
+            Wall = wall;
             this.canvas = canvas;
-            
-            rectangle = new Rectangle();
-            rectangle.Height = wall.Size;
-            rectangle.Width = wall.Size;
-            
+
+            rectangle = new Rectangle
+            {
+                Height = wall.Size,
+                Width = wall.Size
+            };
+
             if (wall.TypeWall == TypeWall.Steel) { 
                 rectangle.Fill = Media.getTexture(Texture.Steel);
             }

@@ -12,9 +12,6 @@ namespace BattleCity.Classes.Model
 {
     internal class Game
     {
-        private double heightWindow;
-        private double weightWindow;
-        private double gameSize;
         private List<ViewWall> viewWalls = new List<ViewWall>();
         DispatcherTimer gameTimer = new DispatcherTimer();
 
@@ -24,18 +21,18 @@ namespace BattleCity.Classes.Model
         private Canvas canvas;
         public double X; //Размер поля 200*200. При перемножении на X получем длину в пикселях экрана
         public Level Level { get; set; }
-        
-        public double HeightWindow { get { return heightWindow; } }
-        public double WeightWindow { get { return weightWindow; } }
-        public double GameSize { get { return gameSize; } }
+
+        public double HeightWindow { get; }
+        public double WeightWindow { get; }
+        public double GameSize { get; }
 
 
         public Game(int id, ref Canvas canvas)
         {
-            heightWindow = System.Windows.SystemParameters.PrimaryScreenHeight;
-            weightWindow = System.Windows.SystemParameters.PrimaryScreenWidth;
-            gameSize = heightWindow* 0.9;
-            X = gameSize / 200;
+            HeightWindow = System.Windows.SystemParameters.PrimaryScreenHeight;
+            WeightWindow = System.Windows.SystemParameters.PrimaryScreenWidth;
+            GameSize = HeightWindow* 0.9;
+            X = GameSize / 200;
 
             level = new Level(id);
             this.canvas = canvas;

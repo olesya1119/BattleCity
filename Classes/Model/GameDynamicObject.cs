@@ -18,22 +18,20 @@ namespace BattleCity.Classes.Model
     /// </summary>
     internal class GameDynamicObject : GameObject, ICollidable
     {
-        private int hp;
-        private Direction direction;
         private double speed;
 
         /// <summary>
         /// Количество очков здоровья.
         /// </summary>
-        public int HP { get { return hp; } set { hp = value; } }
+        public int HP { get; set; }
         /// <summary>
         /// Направление в которое "смотрит" объект.
         /// </summary>
-        public Direction Direction { get { return direction; } set { direction = value; } }
+        public Direction Direction { get; set; }
         /// <summary>
         /// Скорость объекта.
         /// </summary>
-        public double Speed { get { return speed; } set { speed = value; } }
+        public double Speed { get { return speed; } set { speed = value > 0 ? value : 1; } }
         
         public bool isCollide(GameObject gameObject)
         {

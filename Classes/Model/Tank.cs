@@ -13,12 +13,10 @@ namespace BattleCity.Classes
     /// </summary>
     class Tank: GameDynamicObject
     {
-        private bool go;
-
         /// <summary>
         /// Показывают, находится ли танк в движении.
         /// </summary>
-        public bool Go { get { return go; } set { go = value; } }
+        public bool Go { get; set; }
 
         public Tank() {}
 
@@ -35,7 +33,7 @@ namespace BattleCity.Classes
 
         public Tank(Tank tank)
         {
-            Go = tank.go;
+            Go = tank.Go;
             Direction = tank.Direction;
             PosX = tank.PosX;
             PosY = tank.PosY;
@@ -98,7 +96,7 @@ namespace BattleCity.Classes
         /// </summary>
         private void Drive() //Движение танка
         {
-            if (go && Direction == Direction.Left)
+            if (Go && Direction == Direction.Left)
             {
                 if (PosX - Size / 2 - Speed <= 0)
                 {
@@ -110,7 +108,7 @@ namespace BattleCity.Classes
                 }
 
             }
-            else if (go && Direction == Direction.Right)
+            else if (Go && Direction == Direction.Right)
             {
                 if (PosX + Size / 2 + Speed >= Map.X)
                 {
@@ -122,7 +120,7 @@ namespace BattleCity.Classes
                 }
 
             }
-            else if (go && Direction == Direction.Up)
+            else if (Go && Direction == Direction.Up)
             {
                 if(PosY + Size / 2 + Speed >= Map.X)
                 {
@@ -134,7 +132,7 @@ namespace BattleCity.Classes
                 }
 
             } 
-            else if (go && Direction == Direction.Down)
+            else if (Go && Direction == Direction.Down)
             {
                 if (PosY - Size / 2 - Speed <= 0)
                 {

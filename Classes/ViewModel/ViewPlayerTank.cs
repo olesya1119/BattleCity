@@ -20,44 +20,41 @@ namespace BattleCity.Classes
 
     internal class ViewPlayerTank
     {
-        private Tank tank;
-        private Rectangle rectangle;
         private int frame, numberPlayer;
-        private Key left, right, up, down, shoot;
+        private Key shoot;
         private ImageBrush[] frames;
         private Canvas canvas;
-        private ViewBullet viewBullet;
 
-        public Tank Tank { get { return tank; } }
-        public Rectangle Rectangle { get { return rectangle; } }
+        public Tank Tank { get; }
+        public Rectangle Rectangle { get; }
         public Canvas Canvas { get { return canvas; } }
         /// <summary>
         /// Нажата клавиша влево.
         /// </summary>
-        public Key Left { get { return left; } }
+        public Key Left { get; }
         /// <summary>
         /// Нажата клавиша вправо.
         /// </summary>
-        public Key Right { get { return right; } }
+        public Key Right { get; }
         /// <summary>
         /// Нажата клавиша вверх.
         /// </summary>
-        public Key Up { get { return up; } }
+        public Key Up { get; }
         /// <summary>
         /// Нажата клавиша вниз.
         /// </summary>
-        public Key Down { get { return down; } }
-        public ViewBullet ViewBullet { get { return viewBullet; } }
+        public Key Down { get; }
+        public ViewBullet ViewBullet { get; private set; }
 
 
         public ViewPlayerTank(Tank tank, Key left, Key right, Key up, Key down, Key shoot, int numberPlayer, ref Canvas canvas)
         {
-            this.left = left;
-            this.right = right;
-            this.up = up;
-            this.down = down;
+            this.Left = left;
+            this.Right = right;
+            this.Up = up;
+            this.Down = down;
             this.shoot = shoot;
-            this.tank = tank;
+            this.Tank = tank;
             this.numberPlayer = numberPlayer;
             this.canvas = canvas;
 
@@ -71,16 +68,16 @@ namespace BattleCity.Classes
             }
 
             frame = 0;
-            rectangle = new Rectangle();
+            Rectangle = new Rectangle();
 
-            rectangle.Height = tank.Size;
-            rectangle.Width = tank.Size;
-            rectangle.Fill = frames[0];
-            Canvas.SetLeft(rectangle, tank.PosX - tank.Size / 2);
-            Canvas.SetBottom(rectangle, tank.PosY - tank.Size / 2);
+            Rectangle.Height = tank.Size;
+            Rectangle.Width = tank.Size;
+            Rectangle.Fill = frames[0];
+            Canvas.SetLeft(Rectangle, tank.PosX - tank.Size / 2);
+            Canvas.SetBottom(Rectangle, tank.PosY - tank.Size / 2);
 
-            canvas.Children.Add(rectangle);
-            viewBullet = null;
+            canvas.Children.Add(Rectangle);
+            ViewBullet = null;
         }
 
 
@@ -91,21 +88,21 @@ namespace BattleCity.Classes
             {
                 frame = 0;
             }
-            rectangle.Fill = frames[frame + (frames.Length / 4) * (int)tank.Direction];
+            Rectangle.Fill = frames[frame + (frames.Length / 4) * (int)Tank.Direction];
         }
 
 
         public void Update() { 
-            tank.Update();
-            Canvas.SetLeft(rectangle, tank.PosX - tank.Size / 2);
-            Canvas.SetBottom(rectangle, tank.PosY - tank.Size / 2);
+            Tank.Update();
+            Canvas.SetLeft(Rectangle, Tank.PosX - Tank.Size / 2);
+            Canvas.SetBottom(Rectangle, Tank.PosY - Tank.Size / 2);
 
-            if (viewBullet != null)
+            if (ViewBullet != null)
             {
-                viewBullet.Update();
-                if (viewBullet.Bullet.HP == 0)
+                ViewBullet.Update();
+                if (ViewBullet.Bullet.HP == 0)
                 {
-                    viewBullet = null;
+                    ViewBullet = null;
                 }
             }
       
@@ -113,45 +110,45 @@ namespace BattleCity.Classes
 
        public void UpdateKeyboard()
         {
-            if (Keyboard.IsKeyDown(left))
+            if (Keyboard.IsKeyDown(Left))
             {
-                tank.Go = true;
-                tank.Direction = Direction.Left;
+                Tank.Go = true;
+                Tank.Direction = Direction.Left;
                 UpdateTexture();
             }
 
-            else if(Keyboard.IsKeyDown(right))
+            else if(Keyboard.IsKeyDown(Right))
             {
-                tank.Go = true;
-                tank.Direction = Direction.Right;
+                Tank.Go = true;
+                Tank.Direction = Direction.Right;
                 UpdateTexture();
             }
 
-            else if (Keyboard.IsKeyDown(up))
+            else if (Keyboard.IsKeyDown(Up))
             {
-                tank.Go = true;
-                tank.Direction = Direction.Up;
+                Tank.Go = true;
+                Tank.Direction = Direction.Up;
                 UpdateTexture();
             }
 
-            else if (Keyboard.IsKeyDown(down))
+            else if (Keyboard.IsKeyDown(Down))
             {
-                tank.Go = true;
-                tank.Direction = Direction.Down;
+                Tank.Go = true;
+                Tank.Direction = Direction.Down;
                 UpdateTexture();
             }
 
             else {
-                tank.Go = false;
+                Tank.Go = false;
             }
 
         }
         
         public void Shoot(KeyEventArgs e)
         {
-            if (viewBullet == null && e.Key == shoot)
+            if (ViewBullet == null && e.Key == shoot)
             {
-                viewBullet = new ViewBullet(tank.Shoot(), ref canvas);
+                ViewBullet = new ViewBullet(Tank.Shoot(), ref canvas);
             }
         }
     }

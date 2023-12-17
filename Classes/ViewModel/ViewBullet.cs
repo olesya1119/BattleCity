@@ -11,15 +11,14 @@ namespace BattleCity.Classes
 {
     internal class ViewBullet
     {
-        private Bullet bullet;
         private Rectangle rectangle;
         private Canvas canvas;
 
-        public Bullet Bullet { get { return bullet; } set { bullet = value; } }
+        public Bullet Bullet { get; set; }
 
         public ViewBullet(Bullet bullet, ref Canvas canvas)
         {
-            this.bullet = bullet;
+            this.Bullet = bullet;
             this.canvas = canvas;
 
             rectangle = new Rectangle();
@@ -35,11 +34,11 @@ namespace BattleCity.Classes
 
         public void Update()
         {
-            bullet.Fly();
-            Canvas.SetLeft(rectangle, bullet.PosX - bullet.Size / 2);
-            Canvas.SetBottom(rectangle, bullet.PosY - bullet.Size / 2);
+            Bullet.Fly();
+            Canvas.SetLeft(rectangle, Bullet.PosX - Bullet.Size / 2);
+            Canvas.SetBottom(rectangle, Bullet.PosY - Bullet.Size / 2);
 
-            if (bullet.HP ==  0) { 
+            if (Bullet.HP ==  0) { 
                 Death();
             }
             
@@ -48,7 +47,7 @@ namespace BattleCity.Classes
         public void Death()
         {
             canvas.Children.Remove(rectangle);
-            bullet.HP = 0;
+            Bullet.HP = 0;
         }
     }
 }
