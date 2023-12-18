@@ -57,25 +57,25 @@ namespace BattleCity.Classes.Model
             gameTimer.Start();
         }
 
-        void tankCanGo(ViewPlayerTank p)
+        void tankCanGo(ViewPlayerTank p, Tank t1, Tank t2)
         {
             if (p.Tank.Go)
             {
                 switch (p.Tank.Direction)
                 {
                     case Direction.Left:
-                        tnk1.PosX -= p.Tank.Speed; break;
+                        t1.PosX -= p.Tank.Speed; break;
                     case Direction.Right:
-                        tnk1.PosX += p.Tank.Speed; break;
+                        t1.PosX += p.Tank.Speed; break;
                     case Direction.Up:
-                        tnk1.PosY += p.Tank.Speed; break;
+                        t1.PosY += p.Tank.Speed; break;
                     case Direction.Down:
-                        tnk1.PosY -= p.Tank.Speed; break;
+                        t1.PosY -= p.Tank.Speed; break;
                 }
-                if (tnk1.isCollide(tnk2)) { p.Tank.Go = false; return; }
+                if (t1.isCollide(t2)) { p.Tank.Go = false; return; }
                 for (int i = 0; i < viewWalls.Count; i++)
                 {
-                    if (tnk1.isCollide(viewWalls[i].Wall))
+                    if (t1.isCollide(viewWalls[i].Wall))
                     {
                         p.Tank.Go = false;
                         return;
@@ -111,8 +111,8 @@ namespace BattleCity.Classes.Model
             tnk1.PosY = player1.Tank.PosY;
             tnk2.PosX = player2.Tank.PosX;
             tnk2.PosY = player2.Tank.PosY;
-            tankCanGo(player1);
-            tankCanGo(player2);
+            tankCanGo(player1, tnk1, tnk2);
+            tankCanGo(player2, tnk2, tnk1);
             if (player1.ViewBullet != null || player2.ViewBullet != null)
             {
                 for (int i = 0; i < viewWalls.Count; i++)
