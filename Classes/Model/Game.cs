@@ -56,6 +56,7 @@ namespace BattleCity.Classes.Model
             gameTimer.Interval = TimeSpan.FromMilliseconds(20);
             gameTimer.Start();
         }
+
         void tankCanGo(ViewPlayerTank p)
         {
             if (p.Tank.Go)
