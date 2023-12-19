@@ -31,13 +31,18 @@ namespace BattleCity.Classes.Model
         {
             HeightWindow = System.Windows.SystemParameters.PrimaryScreenHeight;
             WeightWindow = System.Windows.SystemParameters.PrimaryScreenWidth;
+
             GameSize = HeightWindow* 0.9;
             X = GameSize / 200;
 
             level = new Level(id);
             this.canvas = canvas;
-            
-            for (int i = 0; i < level.Walls.Count; i++) {
+           
+            for (int i = 0; i < level.Walls.Count; i++)
+            {
+                level.Walls[i].PosX *= X;
+                level.Walls[i].PosY *= X;
+                level.Walls[i].Size *= X;
                 viewWalls.Add(new ViewWall(level.Walls[i], ref canvas));
             }
         }
